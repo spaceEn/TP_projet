@@ -1,1 +1,42 @@
-test 123
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.animation as animation
+
+
+
+
+def initfig():
+    """ cette fonction sert à créeer la première image """
+    plt.axis("off")
+    plt.imshow(data, animated=True)
+
+
+def updatefig(i):
+    """ fonction d'argument le numéro de l'image qui crée l'image suivante 
+        modifiée. 
+        Le numéro i est incrémenté à l'exécution de animation.FuncAnimation """
+ 
+    print("Traitement de l'image ",i)
+    data[i,i] = [1,0,0] # modification du tableau de données
+    plt.imshow(data) # modification de l'image
+   
+
+
+# Initialisation du tableau
+hauteur,largeur = 10  , 10
+data =np.zeros((hauteur,largeur,3))
+
+
+# Création de l'animation
+fig = plt.figure(figsize=(10,10)) # cette ligne est importante! On stocke l'image
+anim = animation.FuncAnimation(fig, updatefig, frames=10, init_func=initfig)
+5
+#  frames = 10 -> on réalise 10 images 
+
+# Sauvegarde 
+# fps = nombre d'images par seconde
+#anim.save('test.mp4', fps=5, writer='imagemagick')	# Sauvegarde du film
+
+
+# Rq: il se peut qu'un message d'erreur apparaisse. On peut remplacer par:
+anim.save('test.gif', fps=1,  writer='PillowWriter')	# Sauvegarde du film
